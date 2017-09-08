@@ -1,0 +1,17 @@
+<!--<div *ngIf="message">{{message.text}}</div>-->
+<!--<div *ngFor="let state of msgArray">
+    {{state}}
+</div>-->
+<h4>{{screenmgs}}</h4>
+
+<div class="container-fluid" style="margin-top:100px;">
+    <div class="row">
+        <div class="col-md-8">
+            <project-new *ngIf="isShowProjectNew"></project-new>
+            <project-event-new *ngIf="isShowProjectEventNew"></project-event-new>
+            <project-selected *ngIf="isShowProjectSelected"></project-selected>
+        </div>
+        <div class="col-md-4">
+        </div>
+    </div>
+</div>
