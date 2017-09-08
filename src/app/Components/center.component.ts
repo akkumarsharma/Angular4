@@ -17,34 +17,28 @@ export class CenterComponent implements OnDestroy {
     opType: string;
     msgArray = [];
     screenmgs: string;
-    isShowProjectNew:boolean;
-    isShowProjectEventNew:boolean;
-    isShowProjectSelected:boolean;
+    isShowProjectNew: boolean;
+    isShowProjectEventNew: boolean;
+    isShowProjectSelected: boolean;
     constructor(private messageService: serviceForRoute) {
         this.subscription = this.messageService.getMessage().subscribe(message => { this.GetViewInfo(message) });
     }
 
     GetViewInfo(obj: CenterComm) {
         if (obj.CommType != undefined && obj.CommType != null) {
-
+            this.HideAllCompBeforeLoad()
             switch (obj.CommType) {
                 case CenterIdentifier.createNewProject:
                     this.screenmgs = "Create new project";
-                    this.isShowProjectNew=true;
-                    this.isShowProjectEventNew=false;
-                    this.isShowProjectSelected=false;
+                    this.isShowProjectNew = true;
                     break;
                 case CenterIdentifier.createNewProjectEvent:
                     this.screenmgs = "Create new project event"
-                     this.isShowProjectNew=false;
-                    this.isShowProjectEventNew=true;
-                    this.isShowProjectSelected=false;
+                    this.isShowProjectEventNew = true;
                     break;
                 case CenterIdentifier.selectProject:
                     this.screenmgs = "Project details"
-                     this.isShowProjectNew=false;
-                    this.isShowProjectEventNew=false;
-                    this.isShowProjectSelected=true;
+                    this.isShowProjectSelected = true;
                     break;
                 case CenterIdentifier.createNewResource:
                     this.screenmgs = "Create new resource";
@@ -59,6 +53,11 @@ export class CenterComponent implements OnDestroy {
                     this.screenmgs = "Error"
             }
         }
+    }
+    HideAllCompBeforeLoad():void{
+            this.isShowProjectNew = false;
+            this.isShowProjectEventNew = false;
+            this.isShowProjectSelected = false;
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();

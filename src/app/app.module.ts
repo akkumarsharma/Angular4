@@ -16,6 +16,7 @@ import { CollapsibleModule } from 'angular2-collapsible';
 import { ProjectNewComponent } from './Components/CenterComponents/ProjectCenterComponents/project.new.component';
 import { ProjectSelectedComponent } from './Components/CenterComponents/ProjectCenterComponents/project.selected.component';
 import { ProjectEventNewComponent } from './Components/CenterComponents/ProjectCenterComponents/project.event.new.component';
+import { ControlMessages } from './Directives/control.message'
 import {
   MdAutocompleteModule,
    MdInputModule,
@@ -27,6 +28,7 @@ import {
 import {HttpModule} from '@angular/http';
 //import {CdkTableModule} from '@angular/cdk';
 import { CreateprojectsComponent } from './Components/createprojects/createprojects.component';
+import { ChartsModule } from 'ng2-charts';
 //  import { DateTimePickerModule } from 'ng-pick-datetime';
 @NgModule({
 
@@ -44,11 +46,12 @@ import { CreateprojectsComponent } from './Components/createprojects/createproje
     ReactiveFormsModule,
     MdTabsModule,
     CollapsibleModule,
-    MdDatepickerModule
+    MdDatepickerModule,
+    ChartsModule
   ],
 
   declarations: [AppComponent,TopComponent,LeftComponent,CenterComponent,ProjectComponent,ResourceComponent,ProjectNewComponent, CreateprojectsComponent,
-  ProjectSelectedComponent,ProjectEventNewComponent],
+  ProjectSelectedComponent,ProjectEventNewComponent,ControlMessages],
   bootstrap: [AppComponent],
   providers: [serviceForRoute]
 })

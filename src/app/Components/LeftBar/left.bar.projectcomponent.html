@@ -12,9 +12,11 @@
     </div>
   </div>
   <div class="row" style="margin-top:20px;">
-    <div class="col-md-12" #abc>
+    <!--<div class="col-md-12" #abc>-->
+      <div class="col-md-12">
       <md-input-container>
-        <input mdInput placeholder="" [mdAutocomplete]="auto" [formControl]="stateCtrl" [(ngModel)]="state" (ngModelChange)="onChange($event)" class="textbox">
+        <!--<input mdInput placeholder="" [mdAutocomplete]="auto" [formControl]="stateCtrl" [(ngModel)]="state" (ngModelChange)="onChange($event)" class="textbox">-->
+        <input mdInput placeholder="Search Projects" [mdAutocomplete]="auto" [formControl]="stateCtrl" [(ngModel)]="state" (ngModelChange)="onChange($event)">
       </md-input-container>
       <md-autocomplete #auto="mdAutocomplete">
         <md-option *ngFor="let state of filteredStates | async" [value]="state">

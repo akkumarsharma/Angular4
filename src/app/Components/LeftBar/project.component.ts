@@ -22,13 +22,11 @@ export class ProjectComponent {
   stateCtrl: FormControl;
   filteredStates: any;
   fullImagePath: string;
-  @ViewChild("abc") el:ElementRef;
-
-
-ngAfterViewInit() {
-      let part=this.el.nativeElement.children[0].children[0].querySelector('.mat-input-underline');
-      this.renderer.setElementStyle(part, 'display', 'none');
-}
+//   @ViewChild("abc") el:ElementRef;
+// ngAfterViewInit() {
+//       let part=this.el.nativeElement.children[0].children[0].querySelector('.mat-input-underline');
+//       this.renderer.setElementStyle(part, 'display', 'none');
+// }
 
   states = [
     'Alabama',

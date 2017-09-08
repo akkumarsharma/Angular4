@@ -1,22 +1,57 @@
 <form class="form-horizontal">
     <div class="form-group">
-      <label for="inputEmail" class="col-lg-2 control-label">Event Name</label>
-      <div class="col-lg-10">
+      <!--<label for="inputEmail" class="col-lg-2 control-label">Event Name</label>-->
+      <div class="col-md-6 col-md-offset-1">
         <input type="text" class="form-control" id="inputEmail" placeholder="Event Name">
       </div>
     </div>
 
     <div class="form-group">
-      <label for="textArea" class="col-lg-2 control-label">Description</label>
-      <div class="col-lg-10">
-        <textarea class="form-control" rows="3" id="textArea"></textarea>
+      <!--<label for="textArea" class="col-lg-2 control-label">Description</label>-->
+      <div class="col-md-6 col-md-offset-1">
+        <textarea class="form-control" placeholder="Project Description" rows="5" id="textArea"></textarea>
         <!--<span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>-->
       </div>
     </div>
     <div class="form-group">
-      <div class="col-lg-10 col-lg-offset-2">
-        <button type="reset" class="btn btn-default">Cancel</button>
-        <button type="submit" class="btn btn-primary">Submit</button>
+      <!--<label for="projects" class="col-lg-2 control-label">Select Project</label>-->
+      <div class="col-md-6 col-md-offset-1">
+         <md-input-container>
+        <input mdInput placeholder="Projects" [mdAutocomplete]="auto" [formControl]="stateCtrl" [(ngModel)]="state">
+      </md-input-container>
+      <md-autocomplete #auto="mdAutocomplete">
+        <md-option *ngFor="let state of filteredStates | async" [value]="state">
+          {{ state }}
+        </md-option>
+      </md-autocomplete>
+        <!--<span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>-->
       </div>
+    </div>
+    <div class="form-group">
+    <!--<label for="StartdateTime" class="col-lg-2 control-label" style="margin-top:10px;">StartDate</label>-->
+    <div class="col-md-6 col-md-offset-1">
+      <md-form-field>
+        <input mdInput [mdDatepicker]="startdatepicker" placeholder="Choose a date">
+        <md-datepicker-toggle mdSuffix [for]="startdatepicker"></md-datepicker-toggle>
+        <md-datepicker #startdatepicker></md-datepicker>
+      </md-form-field>
+    </div>
+  </div>
+  <div class="form-group">
+    <!--<label for="EnddateTime" class="col-lg-2 control-label"  style="margin-top:10px;">EndDate</label>-->
+    <div class="col-md-6 col-md-offset-1">
+      <md-form-field>
+        <input mdInput [mdDatepicker]="enddatepicker" placeholder="Choose a date">
+        <md-datepicker-toggle mdSuffix [for]="enddatepicker"></md-datepicker-toggle>
+        <md-datepicker #enddatepicker></md-datepicker>
+      </md-form-field>
+    </div>
+  </div>
+    <div class="form-group">
+      <div class="col-md-6 col-md-offset-1">
+      <button type="submit" class="btn btn-primary">Submit</button>
+      <button type="reset" class="btn btn-default">Cancel</button>
+      
+    </div>
     </div>
 </form>
