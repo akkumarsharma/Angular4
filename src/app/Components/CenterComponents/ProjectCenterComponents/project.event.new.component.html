@@ -1,57 +1,77 @@
-<form class="form-horizontal">
-    <div class="form-group">
-      <!--<label for="inputEmail" class="col-lg-2 control-label">Event Name</label>-->
-      <div class="col-md-6 col-md-offset-1">
-        <input type="text" class="form-control" id="inputEmail" placeholder="Event Name">
-      </div>
+<form class="form-horizontal" novalidate (ngSubmit)="onSubmit(projectEventNewFrm)" [formGroup]="projectEventNewFrm">
+  <div class="form-group">
+    <!--<label for="inputEmail" class="col-lg-2 control-label">Event Name</label>-->
+    <div class="col-md-6 col-md-offset-1">
+      <input type="text" class="form-control" id="" placeholder="Event Name" formControlName="EventNameControl">
+      <control-messages [control]="projectEventNewFrm.controls.EventNameControl"></control-messages>
     </div>
+  </div>
 
-    <div class="form-group">
-      <!--<label for="textArea" class="col-lg-2 control-label">Description</label>-->
-      <div class="col-md-6 col-md-offset-1">
-        <textarea class="form-control" placeholder="Project Description" rows="5" id="textArea"></textarea>
-        <!--<span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>-->
-      </div>
+
+  <div class="form-group">
+    <!--<label for="textArea" class="col-lg-2 control-label">Description</label>-->
+    <div class="col-md-6 col-md-offset-1">
+      <textarea class="form-control" placeholder="Event Description" rows="5" id="textArea" formControlName="EventDescControl"></textarea>
+      <control-messages [control]="projectEventNewFrm.controls.EventDescControl"></control-messages>
+      <!--<span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>-->
     </div>
-    <div class="form-group">
-      <!--<label for="projects" class="col-lg-2 control-label">Select Project</label>-->
-      <div class="col-md-6 col-md-offset-1">
-         <md-input-container>
+  </div>
+
+
+  <div class="form-group">
+    <!--<label for="projects" class="col-lg-2 control-label">Select Project</label>-->
+    <div class="col-md-6 col-md-offset-1">
+      <md-input-container>
         <input mdInput placeholder="Projects" [mdAutocomplete]="auto" [formControl]="stateCtrl" [(ngModel)]="state">
       </md-input-container>
+            <md-error *ngIf="stateCtrl.hasError('required') &&  (stateCtrl.dirty || stateCtrl.touched)">
+          <span style="font-size: 75%;">Select a project.</span>
+        </md-error>
       <md-autocomplete #auto="mdAutocomplete">
         <md-option *ngFor="let state of filteredStates | async" [value]="state">
           {{ state }}
         </md-option>
       </md-autocomplete>
-        <!--<span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>-->
-      </div>
+      <!--<span class="help-block">A longer block of help text that breaks onto a new line and may extend beyond one line.</span>-->
     </div>
-    <div class="form-group">
+  </div>
+
+
+  <div class="form-group">
     <!--<label for="StartdateTime" class="col-lg-2 control-label" style="margin-top:10px;">StartDate</label>-->
     <div class="col-md-6 col-md-offset-1">
       <md-form-field>
-        <input mdInput [mdDatepicker]="startdatepicker" placeholder="Choose a date">
+        <input mdInput [mdDatepicker]="startdatepicker" placeholder="Choose a date" [formControl]="eventStartDateControl" [(ngModel)]="eventStartDateBind">
+        <md-error *ngIf="eventStartDateControl.hasError('required')">
+          Start date is <strong>required</strong>
+        </md-error>
         <md-datepicker-toggle mdSuffix [for]="startdatepicker"></md-datepicker-toggle>
         <md-datepicker #startdatepicker></md-datepicker>
       </md-form-field>
     </div>
   </div>
+
+
   <div class="form-group">
     <!--<label for="EnddateTime" class="col-lg-2 control-label"  style="margin-top:10px;">EndDate</label>-->
     <div class="col-md-6 col-md-offset-1">
       <md-form-field>
-        <input mdInput [mdDatepicker]="enddatepicker" placeholder="Choose a date">
+        <input mdInput [mdDatepicker]="enddatepicker" placeholder="Choose a date" [formControl]="eventEndDateControl" [(ngModel)]="eventEndDateBind">
+        <md-error *ngIf="eventEndDateControl.hasError('required')">
+          End date is <strong>required</strong>
+        </md-error>
         <md-datepicker-toggle mdSuffix [for]="enddatepicker"></md-datepicker-toggle>
         <md-datepicker #enddatepicker></md-datepicker>
       </md-form-field>
     </div>
   </div>
-    <div class="form-group">
-      <div class="col-md-6 col-md-offset-1">
-      <button type="submit" class="btn btn-primary">Submit</button>
+
+
+  <div class="form-group">
+    <div class="col-md-6 col-md-offset-1">
+      <button type="submit" class="btn btn-primary" [disabled]="projectEventNewFrm.invalid || eventStartDateControl.invalid ||eventEndDateControl.invalid">Submit</button>
       <button type="reset" class="btn btn-default">Cancel</button>
-      
     </div>
-    </div>
+  </div>
+
 </form>

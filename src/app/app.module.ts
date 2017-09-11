@@ -29,6 +29,7 @@ import {HttpModule} from '@angular/http';
 //import {CdkTableModule} from '@angular/cdk';
 import { CreateprojectsComponent } from './Components/createprojects/createprojects.component';
 import { ChartsModule } from 'ng2-charts';
+import { DatePipe } from '@angular/common';
 //  import { DateTimePickerModule } from 'ng-pick-datetime';
 @NgModule({
 
@@ -53,7 +54,7 @@ import { ChartsModule } from 'ng2-charts';
   declarations: [AppComponent,TopComponent,LeftComponent,CenterComponent,ProjectComponent,ResourceComponent,ProjectNewComponent, CreateprojectsComponent,
   ProjectSelectedComponent,ProjectEventNewComponent,ControlMessages],
   bootstrap: [AppComponent],
-  providers: [serviceForRoute]
+  providers: [serviceForRoute,DatePipe]
 })
 export class AppModule {}
 

@@ -72,12 +72,12 @@ export class ResourceComponent {
     'Wisconsin',
     'Wyoming',
   ];
-  @ViewChild("abc") el:ElementRef;
+//   @ViewChild("abc") el:ElementRef;
 
-ngAfterViewInit() {
-      let part=this.el.nativeElement.children[0].children[0].querySelector('.mat-input-underline');
-      this.renderer.setElementStyle(part, 'display', 'none');
-}
+// ngAfterViewInit() {
+//       let part=this.el.nativeElement.children[0].children[0].querySelector('.mat-input-underline');
+//       this.renderer.setElementStyle(part, 'display', 'none');
+// }
 
   constructor(private router: Router, private sharedService: serviceForRoute,private renderer: Renderer) {
     this.stateCtrl = new FormControl();

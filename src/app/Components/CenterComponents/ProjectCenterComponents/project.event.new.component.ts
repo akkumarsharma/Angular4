@@ -1,22 +1,56 @@
-import { Component,OnInit } from '@angular/core';
-import {ActivatedRoute} from "@angular/router";
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from "@angular/router";
 import { FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { NewProjectEventModel } from '../../../Models/NewProjectEventModel';
+import { DatePipe } from '@angular/common';
 @Component({
   selector: 'project-event-new',
   templateUrl: './project.event.new.component.html'
 })
-export class ProjectEventNewComponent{
-    constructor() {
-    this.stateCtrl = new FormControl();
+export class ProjectEventNewComponent implements OnInit {
+  constructor(private fb: FormBuilder, public datepipe: DatePipe) {
+    this.stateCtrl = new FormControl('', [
+      Validators.required])
     this.filteredStates = this.stateCtrl.valueChanges
       .startWith(null)
       .map(name => this.filterStates(name));
-  
+
   }
-stateCtrl: FormControl;
+  projectEventNewFrm: FormGroup;
+  eventStartDateControl: FormControl;
+  eventEndDateControl: FormControl;
+  newProjectEventModel: NewProjectEventModel;
+  eventStartDateBind: string;
+  eventEndDateBind: string;
+  state: string;
+  ngOnInit(): void {
+    this.projectEventNewFrm = this.fb.group({
+      EventNameControl: ['', Validators.required],
+      EventDescControl: ['', Validators.required]
+      // ProjectStartDate:[null,Validators.required]
+
+    });
+    this.eventStartDateControl = new FormControl(null, [
+      Validators.required])
+    this.eventEndDateControl = new FormControl(null, [
+      Validators.required])
+  }
+
+  onSubmit(formData: any) {
+    this.newProjectEventModel = new NewProjectEventModel();
+    debugger;
+    this.newProjectEventModel.EventName = formData._value.EventNameControl;
+    this.newProjectEventModel.EventDesc = formData._value.EventDescControl;
+    this.newProjectEventModel.SelectedProject = this.state;
+    this.newProjectEventModel.EventStartDate = this.datepipe.transform(this.eventStartDateBind, 'yyyy-MM-dd');
+    this.newProjectEventModel.EventEndDate = this.datepipe.transform(this.eventEndDateBind, 'yyyy-MM-dd');
+    console.log(this.newProjectEventModel);
+  }
+
+  stateCtrl: FormControl;
   filteredStates: any;
-   states = [
+  states = [
     'Alabama',
     'Alaska',
     'Arizona',
@@ -73,4 +107,5 @@ stateCtrl: FormControl;
     return val ? this.states.filter(s => s.toLowerCase().indexOf(val.toLowerCase()) === 0)
       : this.states;
   }
+
 }
