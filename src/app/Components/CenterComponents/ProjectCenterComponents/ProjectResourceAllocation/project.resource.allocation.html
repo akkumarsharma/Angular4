@@ -1,0 +1,51 @@
+<!--<div class="container" style="margin-left: 83px;"> -->
+<div class="row">
+    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-md-offset-1">
+        <md-select placeholder="Search Criteria" [(ngModel)]="selectedCriteriaValue" (ngModelChange)="onChange($event)" style="padding-top:0px;">
+            <md-option *ngFor="let criteria of SearchCriteria" [value]="criteria.viewValue">
+                {{ criteria.viewValue }}
+            </md-option>
+        </md-select>
+
+    </div>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+        <div class="input-group input-group-sm">
+            <input type="text" class="form-control" placeholder="Search Resources" [disabled]="isCriteriaNotSelected">
+            <div class="input-group-btn">
+                <button class="btn btn-default" type="submit" [disabled]="isCriteriaNotSelected"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+        </div>
+    </div>
+</div>
+<div class="row" style="margin-top:50px;">
+    <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-md-offset-1">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Firstname</th>
+                    <th>Lastname</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>John</td>
+                    <td>Doe</td>
+                    <td>john@example.com</td>
+                </tr>
+                <tr>
+                    <td>Mary</td>
+                    <td>Moe</td>
+                    <td>mary@example.com</td>
+                </tr>
+                <tr>
+                    <td>July</td>
+                    <td>Dooley</td>
+                    <td>july@example.com</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!--</div>-->

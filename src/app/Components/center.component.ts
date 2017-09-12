@@ -7,7 +7,9 @@ import { CenterComm } from '../CommonClasses/centerComm';
 @Component({
     selector: 'app-center',
     templateUrl: './center.component.html',
+    styleUrls: ['center.component.css'],
     //   providers:[serviceForRoute]
+    
 })
 export class CenterComponent implements OnDestroy {
     num: number;
@@ -20,6 +22,7 @@ export class CenterComponent implements OnDestroy {
     isShowProjectNew: boolean;
     isShowProjectEventNew: boolean;
     isShowProjectSelected: boolean;
+    isShowProjectResourceAllocation:boolean;
     constructor(private messageService: serviceForRoute) {
         this.subscription = this.messageService.getMessage().subscribe(message => { this.GetViewInfo(message) });
     }
@@ -49,15 +52,20 @@ export class CenterComponent implements OnDestroy {
                 case CenterIdentifier.selectResource:
                     this.screenmgs = "selected resource"
                     break;
+                case CenterIdentifier.newProjectResourceCreation:
+                    this.screenmgs = "Project Resource Allocation";
+                    this.isShowProjectResourceAllocation=true;
+                    break;
                 default:
                     this.screenmgs = "Error"
             }
         }
     }
-    HideAllCompBeforeLoad():void{
-            this.isShowProjectNew = false;
-            this.isShowProjectEventNew = false;
-            this.isShowProjectSelected = false;
+    HideAllCompBeforeLoad(): void {
+        this.isShowProjectNew = false;
+        this.isShowProjectEventNew = false;
+        this.isShowProjectSelected = false;
+        this.isShowProjectResourceAllocation=false;
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();

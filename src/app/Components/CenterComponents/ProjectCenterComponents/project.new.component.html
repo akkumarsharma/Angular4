@@ -34,8 +34,8 @@
       <md-form-field>
         <input mdInput [mdDatepicker]="startdatepicker" placeholder="Choose a date" [formControl]="projectStartDateControl" [(ngModel)]="projectStartDateBind">
         <md-error *ngIf="projectStartDateControl.hasError('required')">
-      Start date is <strong>required</strong>
-    </md-error>
+          Start date is <strong>required</strong>
+        </md-error>
         <md-datepicker-toggle mdSuffix [for]="startdatepicker"></md-datepicker-toggle>
         <md-datepicker #startdatepicker></md-datepicker>
       </md-form-field>
@@ -47,9 +47,9 @@
     <div class="col-md-6 col-md-offset-1">
       <md-form-field>
         <input mdInput [mdDatepicker]="enddatepicker" placeholder="Choose a date" [formControl]="projectEndDateControl" [(ngModel)]="projectEndDateBind">
-          <md-error *ngIf="projectEndDateControl.hasError('required')">
-      End date is <strong>required</strong>
-    </md-error>
+        <md-error *ngIf="projectEndDateControl.hasError('required')">
+          End date is <strong>required</strong>
+        </md-error>
         <md-datepicker-toggle mdSuffix [for]="enddatepicker"></md-datepicker-toggle>
         <md-datepicker #enddatepicker></md-datepicker>
       </md-form-field>
@@ -95,10 +95,31 @@
     </div>-->
   <div class="form-group">
     <div class="col-md-6 col-md-offset-1">
-      <button type="submit" [disabled]="projectNewFrm.invalid || projectStartDateControl.invalid ||projectEndDateControl.invalid" class="btn btn-primary">Submit</button>
+      <button type="submit" [disabled]="projectNewFrm.invalid || projectStartDateControl.invalid ||projectEndDateControl.invalid"
+        class="btn btn-primary">Submit</button>
       <button type="reset" class="btn btn-default">Cancel</button>
-      
+
     </div>
   </div>
   <!--</fieldset>-->
 </form>
+
+<!--<button (click)="showDialog = !showDialog" class="btn">Open</button>-->
+
+<app-onsubmit-projectdetail [(visible)]="showDialog">
+  <div class="row">
+    <div class="col-md-12 col-lg-12">
+      <span style="font-size: large;
+    font-family: cursive;">The project creation is successful.Please continue for resource allocation</span>
+    </div>
+  </div>
+  <div class="row" style="margin-top:50px;">
+    <div class="col-md-6 col-lg-6 col-xs-6 col-xs-push-1">
+      <button (click)="NewProjectResorceAllocation()" class="btn">Continue</button>
+    </div>
+    <div class="col-md-6 col-lg-6 col-xs-6">
+      <button (click)="showDialog = !showDialog" class="btn">Cancel</button>
+    </div>
+  </div>
+
+</app-onsubmit-projectdetail>

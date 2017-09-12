@@ -4,5 +4,6 @@ export enum CenterIdentifier {
     selectProject =3,
     createNewResource = 4,
     createNewResourceEvent = 5,
-    selectResource =6
+    selectResource =6,
+    newProjectResourceCreation=7
 }

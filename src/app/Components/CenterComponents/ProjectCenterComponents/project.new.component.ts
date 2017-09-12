@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ViewChild } from '@angular/core';
 import { ActivatedRoute } from "@angular/router";
 import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
-import {NewProjectDetailModel} from '../../../Models/NewProjectDetailModel';
+import { NewProjectDetailModel } from '../../../Models/NewProjectDetailModel';
 import { DatePipe } from '@angular/common';
+import { serviceForRoute } from '../../../Services/SharedServices.service'
+import { CenterComm } from '../../../CommonClasses/centerComm'
+import { CenterIdentifier } from '../../../../enums/center.identifier'
 @Component({
   selector: 'project-new',
   templateUrl: './project.new.component.html'
@@ -31,10 +34,15 @@ export class ProjectNewComponent implements OnInit {
   projectNewFrm: FormGroup;
   projectStartDateControl: FormControl;
   projectEndDateControl: FormControl;
-  newProjectDetailModel:NewProjectDetailModel;
-  projectStartDateBind:string;
-  projectEndDateBind:string;
-  constructor(private fb: FormBuilder,public datepipe: DatePipe) { }
+  newProjectDetailModel: NewProjectDetailModel;
+  projectStartDateBind: string;
+  projectEndDateBind: string;
+
+
+  //start dialog
+  showDialog = false;
+  //end dialog
+  constructor(private fb: FormBuilder, public datepipe: DatePipe, private sharedService: serviceForRoute) { }
   ngOnInit(): void {
     this.projectNewFrm = this.fb.group({
       ProjectName: ['', Validators.required],
@@ -48,13 +56,26 @@ export class ProjectNewComponent implements OnInit {
       Validators.required])
   }
 
-  onSubmit(formData:any){
-    this.newProjectDetailModel=new NewProjectDetailModel();
-    this.newProjectDetailModel.projectName=formData._value.ProjectName;
-    this.newProjectDetailModel.projectDesc=formData._value.ProjectDesc;
-    this.newProjectDetailModel.projectStartDate=this.datepipe.transform(this.projectStartDateBind, 'yyyy-MM-dd');
-    this.newProjectDetailModel.projectEndDate=this.datepipe.transform(this.projectEndDateBind, 'yyyy-MM-dd');
+  onSubmit(formData: any) {
+    this.newProjectDetailModel = new NewProjectDetailModel();
+    this.newProjectDetailModel.projectName = formData._value.ProjectName;
+    this.newProjectDetailModel.projectDesc = formData._value.ProjectDesc;
+    this.newProjectDetailModel.projectStartDate = this.datepipe.transform(this.projectStartDateBind, 'yyyy-MM-dd');
+    this.newProjectDetailModel.projectEndDate = this.datepipe.transform(this.projectEndDateBind, 'yyyy-MM-dd');
+    this.showDialog = true;
     console.log(this.newProjectDetailModel);
   }
+
+  centerCommObj: CenterComm;
+  NewProjectResorceAllocation() {
+    this.showDialog = false;
+    this.centerCommObj = new CenterComm;
+    this.centerCommObj.CommType = CenterIdentifier.newProjectResourceCreation;
+    this.centerCommObj.Id = null;//projectId will go here
+    this.sharedService.sendMessage(this.centerCommObj);
+  }
+
+
+
 
 }

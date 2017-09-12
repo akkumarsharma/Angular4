@@ -22,7 +22,8 @@ import {
    MdInputModule,
    MdNativeDateModule,
    MdTabsModule,
-   MdDatepickerModule
+   MdDatepickerModule,
+   MdSelectModule
 
 } from '@angular/material';
 import {HttpModule} from '@angular/http';
@@ -30,6 +31,8 @@ import {HttpModule} from '@angular/http';
 import { CreateprojectsComponent } from './Components/createprojects/createprojects.component';
 import { ChartsModule } from 'ng2-charts';
 import { DatePipe } from '@angular/common';
+import { DialogOnsubmitProjectdetailsComponent } from './Components/CenterComponents/ProjectCenterComponents/DialogOnsubmitProjectdetail/dialog.onsubmit.projectdetails.component';
+import { ProjectResourceAllocationComponent } from './Components/CenterComponents/ProjectCenterComponents/ProjectResourceAllocation/project.resource.allocation.component'
 //  import { DateTimePickerModule } from 'ng-pick-datetime';
 @NgModule({
 
@@ -48,11 +51,12 @@ import { DatePipe } from '@angular/common';
     MdTabsModule,
     CollapsibleModule,
     MdDatepickerModule,
-    ChartsModule
+    ChartsModule,
+    MdSelectModule
   ],
 
   declarations: [AppComponent,TopComponent,LeftComponent,CenterComponent,ProjectComponent,ResourceComponent,ProjectNewComponent, CreateprojectsComponent,
-  ProjectSelectedComponent,ProjectEventNewComponent,ControlMessages],
+  ProjectSelectedComponent,ProjectEventNewComponent,ControlMessages,DialogOnsubmitProjectdetailsComponent,ProjectResourceAllocationComponent],
   bootstrap: [AppComponent],
   providers: [serviceForRoute,DatePipe]
 })

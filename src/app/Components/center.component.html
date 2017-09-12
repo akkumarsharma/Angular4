@@ -5,7 +5,8 @@
 <div class="container-fluid" style="margin-bottom:100px;">
     <div class="row" style="margin-bottom:30px;">
         <div class="col-md-8">
-            <h3><span style="padding-left:83px;">{{screenmgs}}</span></h3>
+            <h3><span class="headMsg">{{screenmgs}}</span></h3>
+            <!--<h3>{{screenmgs}}</h3>-->
         </div>
     </div>
     <div class="row">
@@ -14,6 +15,7 @@
             <project-new *ngIf="isShowProjectNew"></project-new>
             <project-event-new *ngIf="isShowProjectEventNew"></project-event-new>
             <project-selected *ngIf="isShowProjectSelected"></project-selected>
+            <project-resource-allocation *ngIf="isShowProjectResourceAllocation"></project-resource-allocation>
         </div>
     </div>
 </div>
