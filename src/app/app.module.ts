@@ -33,6 +33,7 @@ import { ChartsModule } from 'ng2-charts';
 import { DatePipe } from '@angular/common';
 import { DialogOnsubmitProjectdetailsComponent } from './Components/CenterComponents/ProjectCenterComponents/DialogOnsubmitProjectdetail/dialog.onsubmit.projectdetails.component';
 import { ProjectResourceAllocationComponent } from './Components/CenterComponents/ProjectCenterComponents/ProjectResourceAllocation/project.resource.allocation.component'
+import { ProjectResourceIndividualAllocation } from './Components/CenterComponents/ProjectCenterComponents/ProjectResourceAllocation/project.resource.individual.allocation'
 //  import { DateTimePickerModule } from 'ng-pick-datetime';
 @NgModule({
 
@@ -56,7 +57,7 @@ import { ProjectResourceAllocationComponent } from './Components/CenterComponent
   ],
 
   declarations: [AppComponent,TopComponent,LeftComponent,CenterComponent,ProjectComponent,ResourceComponent,ProjectNewComponent, CreateprojectsComponent,
-  ProjectSelectedComponent,ProjectEventNewComponent,ControlMessages,DialogOnsubmitProjectdetailsComponent,ProjectResourceAllocationComponent],
+  ProjectSelectedComponent,ProjectEventNewComponent,ControlMessages,DialogOnsubmitProjectdetailsComponent,ProjectResourceAllocationComponent,ProjectResourceIndividualAllocation],
   bootstrap: [AppComponent],
   providers: [serviceForRoute,DatePipe]
 })
