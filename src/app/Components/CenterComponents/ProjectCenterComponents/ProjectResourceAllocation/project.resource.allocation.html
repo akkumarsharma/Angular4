@@ -10,36 +10,34 @@
     </div>
     <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
         <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Search Resources" [disabled]="isCriteriaNotSelected">
-            <div class="input-group-btn">
+            <input type="text" class="form-control" placeholder="Search Resources" [(ngModel)]="enteredResourceData" 
+            (ngModelChange)="filterResources()" [disabled]="isCriteriaNotSelected">
+            <!--<div class="input-group-btn">
                 <button class="btn btn-default" type="submit" [disabled]="isCriteriaNotSelected"><i class="glyphicon glyphicon-search"></i></button>
-            </div>
+            </div>-->
         </div>
     </div>
 </div>
-<div class="row" style="margin-top:50px;">
+<div class="row" style="margin-top:50px;" *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
+    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 col-md-offset-1" >
+        <div class="row headerResourceTable">
+
+            <div class="col-md-3 col-xs-3">Firstname</div>
+            <div class="col-md-3 col-xs-3">Lastname</div>
+            <div class="col-md-3 col-xs-3">Email</div>
+            <div class="col-md-3 col-xs-3">IsAllocation</div>
+        </div>
+        
+            <project-resource-individual-allocation *ngFor="let r of resourceModelDataFiltered" [resourceDetail]="r">
+            </project-resource-individual-allocation>
+        
+    </div>
+</div>
+<div class="row" style="margin-top:50px;" *ngIf="resourceModelDataFiltered ==null || resourceModelDataFiltered ==undefined || resourceModelDataFiltered.length==0">
     <div class="col-lg-6 col-md-6 col-sm-6 col-xs-6 col-md-offset-1">
-        <table class="table">
-            <thead>
-                <tr>
-                    <th>Firstname</th>
-                    <th>Lastname</th>
-                    <th>Email</th>
-                    <th>IsAllocation</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let r of resourceModelData">
-                    <td>{{r.FirsName}}</td>
-                    <td>{{r.LastName}}</td>
-                    <td>{{r.Email}}</td>
-                    <td><input type="checkbox" (change)="onIsAllocateResource($event,r)"></td>
-                </tr>
-                <!--<project-resource-individual-allocation *ngFor="let r of resourceModelData" [resourceDetail]="r">    <tr></tr></project-resource-individual-allocation>-->
-            </tbody>
-        </table>
-
-
+        <div class="row" style="text-align: center;">
+            No Records found
+        </div>
     </div>
 </div>
 

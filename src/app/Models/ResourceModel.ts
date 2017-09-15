@@ -1,7 +1,7 @@
 
 export class ResourceModel {
     constructor(
-public ResourceId:number,
+public ResourceId:string,
 public FirsName:string,
 public LastName:string,
 public Email:string
