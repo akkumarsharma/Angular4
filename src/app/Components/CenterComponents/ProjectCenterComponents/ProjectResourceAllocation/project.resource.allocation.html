@@ -8,7 +8,7 @@
         </md-select>
 
     </div>
-    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-6">
+    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
         <div class="input-group input-group-sm">
             <input type="text" class="form-control" placeholder="Search Resources" [(ngModel)]="enteredResourceData" 
             (ngModelChange)="filterResources()" [disabled]="isCriteriaNotSelected">
@@ -16,6 +16,12 @@
                 <button class="btn btn-default" type="submit" [disabled]="isCriteriaNotSelected"><i class="glyphicon glyphicon-search"></i></button>
             </div>-->
         </div>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12" (click)="selectAllFilteresResources()" *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
+       <button  class="btn" style="background: #0a6db1;;color: white;height:30px;padding: 0px 9px;">SELECT ALL</button>
+    </div>
+    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12" (click)="UnSelectAllFilteresResources()" style="padding-left:0px;height:30px;" *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
+        <button  class="btn" style="background: #0a6db1;;color: white;height:30px;padding: 0px 9px;">CLEAR ALL</button>
     </div>
 </div>
 <div class="row" style="margin-top:50px;" *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
@@ -28,7 +34,11 @@
             <div class="col-md-3 col-xs-3">IsAllocation</div>
         </div>
         
-            <project-resource-individual-allocation *ngFor="let r of resourceModelDataFiltered" [resourceDetail]="r">
+            <project-resource-individual-allocation *ngFor="let r of resourceModelDataFiltered" 
+            [resourceDetail]="r"
+            [changeCap]="testIt"
+            (resourceProjectModelVariable)="resourceProjectModelVariable($event)"
+            (ClearResourceProjectAllocation)="ClearResourceProjectAllocation($event)">
             </project-resource-individual-allocation>
         
     </div>

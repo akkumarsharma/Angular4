@@ -1,6 +1,6 @@
-export class ResourceProjectAllocationModel {
+export class ResourceProjectAllocationDetailModel {
 public ProjectId:number;
-public ProjectName:string;
+public ResourceId:string;
 public AllocationPercentage:number;
 public StartDate:Date;
 public EndDate:Date;

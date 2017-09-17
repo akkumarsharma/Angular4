@@ -2,14 +2,19 @@
         <div class="col-md-3 col-xs-3">{{resourceDetail.FirsName}}</div>
         <div class="col-md-3 col-xs-3">{{resourceDetail.LastName}}{{stringss}}</div>
         <div class="col-md-3 col-xs-3">{{resourceDetail.Email}}</div>
-        <div class="col-md-3 col-xs-3"><input type="checkbox" (change)="onIsAllocateResource($event,r)"></div>
+        <div class="col-md-3 col-xs-3"><input type="checkbox" [checked]="IsAllocationCheckBoxModel" 
+        [(ngModel)]="IsAllocationCheckBoxModel"
+        (ngModelChange)="onIsAllocateResource()"></div>
 </div>
 <div class="row rowHoverEffect" *ngIf="isResourceAllocated" style="margin-bottom: 10px;">
                 <div class="col-md-3 col-xs-12">
                         <div class="form-group">
                                 <!--<label for="StartdateTime" class="col-lg-2 control-label" style="margin-top:10px;">StartDate</label>-->
-                                        <md-form-field>
-                                                <input mdInput [mdDatepicker]="startdatepicker" placeholder="Choose a start date" [formControl]="eventStartDateControl" [(ngModel)]="eventStartDateBind">
+                                        <md-form-field style="width:100%">
+                                                <input mdInput [mdDatepicker]="startdatepicker" placeholder="Choose a start date" 
+                                                [formControl]="eventStartDateControl" 
+                                                [(ngModel)]="eventStartDateBind"
+                                                (ngModelChange)="onIsAllocateResource()">
                                                 <md-datepicker-toggle mdSuffix [for]="startdatepicker"></md-datepicker-toggle>
                                                 <md-datepicker #startdatepicker></md-datepicker>
                                         </md-form-field>
@@ -20,8 +25,11 @@
                         <div class="form-group">
                                 <!--<label for="EnddateTime" class="col-lg-2 control-label"  style="margin-top:10px;">EndDate</label>-->
                              
-                                        <md-form-field>
-                                                <input mdInput [mdDatepicker]="enddatepicker" placeholder="Choose a end date" [formControl]="eventEndDateControl" [(ngModel)]="eventEndDateBind">
+                                        <md-form-field style="width:100%">
+                                                <input mdInput [mdDatepicker]="enddatepicker" placeholder="Choose a end date" 
+                                                [formControl]="eventEndDateControl" 
+                                                [(ngModel)]="eventEndDateBind"
+                                                (ngModelChange)="onIsAllocateResource()">
                                                 <md-datepicker-toggle mdSuffix [for]="enddatepicker"></md-datepicker-toggle>
                                                 <md-datepicker #enddatepicker></md-datepicker>
                                         </md-form-field>
@@ -32,6 +40,8 @@
                         <input type="text" class="form-control" placeholder="% Allocation" >
                 </div>-->
                 <div class="col-md-3 col-xs-12 allocationTextbox">
-                        <input type="text" class="form-control" placeholder="% Allocation" [(ngModel)]="percentageAllocation">
+                        <input type="text" class="form-control" placeholder="% Allocation" 
+                        [(ngModel)]="percentageAllocation"
+                        (ngModelChange)="onIsAllocateResource()">
                 </div>
         </div>  
