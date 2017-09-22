@@ -5,8 +5,19 @@
 <div class="container-fluid" style="margin-bottom:100px;">
     <div class="row" style="margin-bottom:30px;">
         <div class="col-md-8">
-            <h3><span class="headMsg">{{screenmgs}}</span></h3>
-            <!--<h3>{{screenmgs}}</h3>-->
+            
+            <ul class="steps steps-5">
+                <breadcrumb-menu *ngFor="let menudetail of breadcrumbList" [menuItemInput]="menudetail"></breadcrumb-menu>
+                </ul>
+                <h3><span class="headMsg">{{screenmgs}}</span></h3>
+              <!--<ul class="steps steps-5">
+  <li class="current"><a href="#" title="" ><em>Step 1:</em><span>Create new project</span></a></li>
+  <li><a href="#" title=""><em>Step 2:</em><span>Project Resource Allocation</span></a></li>-->
+  <!--<li class="current"><a href="#" title=""><em>Step 3: XXXXXXXX</em><span>Et nequ a quam turpis duisi</span></a></li>
+  <li><a href="#" title=""><em>Step 4: XXXXXXXX</em><span>Et nequ a quam turpis duisi</span></a></li>
+  <li><a href="#" title=""><em>Step 5: XXXXXXXX</em><span>Et nequ a quam turpis duisi</span></a></li>-->
+<!--</ul>
+            <h3>{{screenmgs}}</h3>-->
         </div>
     </div>
     <div class="row">
@@ -16,6 +27,9 @@
             <project-event-new *ngIf="isShowProjectEventNew"></project-event-new>
             <project-selected *ngIf="isShowProjectSelected"></project-selected>
             <project-resource-allocation *ngIf="isShowProjectResourceAllocation"></project-resource-allocation>
+        </div>
+        <div class="col-md-2">
+            <img src="../../assets/Images/gototop.png" *ngIf="IsGotoTop" value="Top" (click)="GotoTop()" style="position:fixed;width:100px;cursor:pointer;">
         </div>
     </div>
 </div>

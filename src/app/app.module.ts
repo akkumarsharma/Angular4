@@ -12,6 +12,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {NgModule} from '@angular/core';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { serviceForRoute } from './Services/SharedServices.service';
+import { ApiCommunicationService } from './Services/api.communication.service';
 import { CollapsibleModule } from 'angular2-collapsible';
 import { ProjectNewComponent } from './Components/CenterComponents/ProjectCenterComponents/project.new.component';
 import { ProjectSelectedComponent } from './Components/CenterComponents/ProjectCenterComponents/project.selected.component';
@@ -34,6 +35,7 @@ import { DatePipe } from '@angular/common';
 import { DialogOnsubmitProjectdetailsComponent } from './Components/CenterComponents/ProjectCenterComponents/DialogOnsubmitProjectdetail/dialog.onsubmit.projectdetails.component';
 import { ProjectResourceAllocationComponent } from './Components/CenterComponents/ProjectCenterComponents/ProjectResourceAllocation/project.resource.allocation.component'
 import { ProjectResourceIndividualAllocation } from './Components/CenterComponents/ProjectCenterComponents/ProjectResourceAllocation/project.resource.individual.allocation'
+import { BreadcrumbComponent } from './Components/Breadcrumb/breadcrumb.component';
 //  import { DateTimePickerModule } from 'ng-pick-datetime';
 @NgModule({
 
@@ -57,9 +59,10 @@ import { ProjectResourceIndividualAllocation } from './Components/CenterComponen
   ],
 
   declarations: [AppComponent,TopComponent,LeftComponent,CenterComponent,ProjectComponent,ResourceComponent,ProjectNewComponent, CreateprojectsComponent,
-  ProjectSelectedComponent,ProjectEventNewComponent,ControlMessages,DialogOnsubmitProjectdetailsComponent,ProjectResourceAllocationComponent,ProjectResourceIndividualAllocation],
+  ProjectSelectedComponent,ProjectEventNewComponent,ControlMessages,DialogOnsubmitProjectdetailsComponent,ProjectResourceAllocationComponent,ProjectResourceIndividualAllocation,
+  BreadcrumbComponent],
   bootstrap: [AppComponent],
-  providers: [serviceForRoute,DatePipe]
+  providers: [serviceForRoute,DatePipe,ApiCommunicationService]
 })
 export class AppModule {}
 
