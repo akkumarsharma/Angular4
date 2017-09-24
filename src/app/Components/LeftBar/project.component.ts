@@ -112,7 +112,7 @@ export class ProjectComponent {
 
   newProjectEventClick() {
     this.centerCommObj = new CenterComm;
-    this.centerCommObj.CommType = CenterIdentifier.createNewProjectEvent;
+    this.centerCommObj.CommType = CenterIdentifier.createNewProjectActivity;
     this.centerCommObj.Id = null;
     this.sharedService.sendMessage(this.centerCommObj);
   }

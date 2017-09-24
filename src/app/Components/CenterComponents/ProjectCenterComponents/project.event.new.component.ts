@@ -4,12 +4,15 @@ import { FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { NewProjectEventModel } from '../../../Models/NewProjectEventModel';
 import { DatePipe } from '@angular/common';
+import { serviceForRoute } from '../../../Services/SharedServices.service'
+import { CenterComm } from '../../../CommonClasses/centerComm'
+import { CenterIdentifier } from '../../../../enums/center.identifier'
 @Component({
   selector: 'project-event-new',
   templateUrl: './project.event.new.component.html'
 })
 export class ProjectEventNewComponent implements OnInit {
-  constructor(private fb: FormBuilder, public datepipe: DatePipe) {
+  constructor(private fb: FormBuilder, public datepipe: DatePipe,private sharedService: serviceForRoute) {
     this.stateCtrl = new FormControl('', [
       Validators.required])
     this.filteredStates = this.stateCtrl.valueChanges
@@ -36,7 +39,7 @@ export class ProjectEventNewComponent implements OnInit {
     this.eventEndDateControl = new FormControl(null, [
       Validators.required])
   }
-
+showDialog = false;
   onSubmit(formData: any) {
     this.newProjectEventModel = new NewProjectEventModel();
     debugger;
@@ -45,6 +48,7 @@ export class ProjectEventNewComponent implements OnInit {
     this.newProjectEventModel.SelectedProject = this.state;
     this.newProjectEventModel.EventStartDate = this.datepipe.transform(this.eventStartDateBind, 'yyyy-MM-dd');
     this.newProjectEventModel.EventEndDate = this.datepipe.transform(this.eventEndDateBind, 'yyyy-MM-dd');
+    this.showDialog = true;
     console.log(this.newProjectEventModel);
   }
 
@@ -106,6 +110,15 @@ export class ProjectEventNewComponent implements OnInit {
   filterStates(val: string) {
     return val ? this.states.filter(s => s.toLowerCase().indexOf(val.toLowerCase()) === 0)
       : this.states;
+  }
+
+centerCommObj: CenterComm;
+  SubActivityCreation():void{
+     this.showDialog = false;
+    this.centerCommObj = new CenterComm;
+    this.centerCommObj.CommType = CenterIdentifier.subActivityCreation;
+    this.centerCommObj.Id = null;//projectId will go here
+    this.sharedService.sendMessage(this.centerCommObj);
   }
 
 }

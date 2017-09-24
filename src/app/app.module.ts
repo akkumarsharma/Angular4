@@ -18,6 +18,8 @@ import { ProjectNewComponent } from './Components/CenterComponents/ProjectCenter
 import { ProjectSelectedComponent } from './Components/CenterComponents/ProjectCenterComponents/project.selected.component';
 import { ProjectEventNewComponent } from './Components/CenterComponents/ProjectCenterComponents/project.event.new.component';
 import { ControlMessages } from './Directives/control.message'
+import { Tabs } from './Directives/Tabs/tabs'
+import { Tab } from './Directives/Tabs/tab'
 import {
   MdAutocompleteModule,
    MdInputModule,
@@ -36,6 +38,8 @@ import { DialogOnsubmitProjectdetailsComponent } from './Components/CenterCompon
 import { ProjectResourceAllocationComponent } from './Components/CenterComponents/ProjectCenterComponents/ProjectResourceAllocation/project.resource.allocation.component'
 import { ProjectResourceIndividualAllocation } from './Components/CenterComponents/ProjectCenterComponents/ProjectResourceAllocation/project.resource.individual.allocation'
 import { BreadcrumbComponent } from './Components/Breadcrumb/breadcrumb.component';
+import { SubActivityCreationComponent } from './Components/CenterComponents/ProjectCenterComponents/SubActivityCreation/sub.activity.creation.component'
+import { SubActivityFormComponent } from './Components/CenterComponents/ProjectCenterComponents/SubActivityCreation/sub.activity.form.component'
 //  import { DateTimePickerModule } from 'ng-pick-datetime';
 @NgModule({
 
@@ -60,7 +64,7 @@ import { BreadcrumbComponent } from './Components/Breadcrumb/breadcrumb.componen
 
   declarations: [AppComponent,TopComponent,LeftComponent,CenterComponent,ProjectComponent,ResourceComponent,ProjectNewComponent, CreateprojectsComponent,
   ProjectSelectedComponent,ProjectEventNewComponent,ControlMessages,DialogOnsubmitProjectdetailsComponent,ProjectResourceAllocationComponent,ProjectResourceIndividualAllocation,
-  BreadcrumbComponent],
+  BreadcrumbComponent,Tabs, Tab,SubActivityCreationComponent,SubActivityFormComponent],
   bootstrap: [AppComponent],
   providers: [serviceForRoute,DatePipe,ApiCommunicationService]
 })

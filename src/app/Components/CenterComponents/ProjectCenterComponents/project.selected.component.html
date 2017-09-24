@@ -1,4 +1,5 @@
-  <div class="col-md-6 col-md-offset-1">
+ <div class="col-md-offset-1"><tabs>
+      <tab [tabTitle]="'Charts'">  <div class="col-md-6">
  
     <canvas baseChart
                 [data]="lineChartData"
@@ -18,4 +19,9 @@
   </div>
   <div class="col-md-12 text-center" style="margin-top: 10px;height: 50%">
     <button (click)="randomizeType()" style="display: inline-block">Toggle</button>
+  </div></tab>
+      <tab tabTitle="Details">Tab 2 Content</tab>
+    </tabs>  
   </div>
+  
+  

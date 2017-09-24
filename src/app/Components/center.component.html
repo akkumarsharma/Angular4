@@ -27,6 +27,7 @@
             <project-event-new *ngIf="isShowProjectEventNew"></project-event-new>
             <project-selected *ngIf="isShowProjectSelected"></project-selected>
             <project-resource-allocation *ngIf="isShowProjectResourceAllocation"></project-resource-allocation>
+            <sub-activity-creation *ngIf="IsSubActivityCreation"></sub-activity-creation>
         </div>
         <div class="col-md-2">
             <img src="../../assets/Images/gototop.png" *ngIf="IsGotoTop" value="Top" (click)="GotoTop()" style="position:fixed;width:100px;cursor:pointer;">

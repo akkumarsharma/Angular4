@@ -21,19 +21,24 @@ export class BreadcrumbComponent {
     centerCommObj: CenterComm;
     switchComponent() {
         debugger;
-        switch (this.menuItemInput.centerIdentity) {
-            case CenterIdentifier.createNewProject:
-                this.centerCommObj = new CenterComm;
-                this.centerCommObj.CommType = CenterIdentifier.createNewProject;
-                this.centerCommObj.Id = null;
-                this.sharedService.sendMessage(this.centerCommObj);
-                break;
-            case CenterIdentifier.newProjectResourceCreation:
-
-
-                break;
-            default:
+        if (this.menuItemInput.MenuClass != "active") {
+            if(this.menuItemInput.MenuClass != "inactiveright"){
+                switch (this.menuItemInput.centerIdentity) {
+                case CenterIdentifier.createNewProject:
+                    this.centerCommObj = new CenterComm;
+                    this.centerCommObj.CommType = CenterIdentifier.createNewProject;
+                    this.centerCommObj.Id = null;
+                    this.sharedService.sendMessage(this.centerCommObj);
+                    break;
+                case CenterIdentifier.createNewProjectActivity:
+                    this.centerCommObj = new CenterComm;
+                    this.centerCommObj.CommType = CenterIdentifier.createNewProjectActivity;
+                    this.centerCommObj.Id = null;
+                    this.sharedService.sendMessage(this.centerCommObj);
+                    break;
+                default:
+            }
+            }
         }
-
     }
 }
