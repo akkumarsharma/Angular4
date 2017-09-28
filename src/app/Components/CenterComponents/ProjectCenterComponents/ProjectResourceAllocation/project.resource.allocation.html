@@ -1,58 +1,63 @@
 <!--<div class="container" style="margin-left: 83px;"> -->
 <div class="row">
-    <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6 col-md-offset-1">
-        <md-select placeholder="Search Criteria" [(ngModel)]="selectedCriteriaValue" (ngModelChange)="onChange($event)" style="padding-top:0px;">
-            <md-option *ngFor="let criteria of SearchCriteria" [value]="criteria.viewValue">
-                {{ criteria.viewValue }}
-            </md-option>
-        </md-select>
+    <div class="col-lg-8 col-md-8 col-sm-8 col-xs-12 col-md-offset-1">
+        <div class="row">
+            <div class="col-lg-3 col-md-3 col-sm-3 col-xs-6">
+                <md-select placeholder="Search Criteria" [(ngModel)]="selectedCriteriaValue" (ngModelChange)="onChange($event)" style="padding-top:0px;">
+                    <md-option *ngFor="let criteria of SearchCriteria" [value]="criteria.viewValue">
+                        {{ criteria.viewValue }}
+                    </md-option>
+                </md-select>
 
-    </div>
-    <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
-        <div class="input-group input-group-sm">
-            <input type="text" class="form-control" placeholder="Search Resources" [(ngModel)]="enteredResourceData" (ngModelChange)="filterResources()"
-                [disabled]="isCriteriaNotSelected">
-            <!--<div class="input-group-btn">
-                <button class="btn btn-default" type="submit" [disabled]="isCriteriaNotSelected"><i class="glyphicon glyphicon-search"></i></button>
+            </div>
+            <div class="col-lg-2 col-md-3 col-sm-3 col-xs-6">
+                <div class="input-group input-group-sm">
+                    <input type="text" class="form-control" placeholder="Search Resources" [(ngModel)]="enteredResourceData" (ngModelChange)="filterResources()"
+                        [disabled]="isCriteriaNotSelected">
+                </div>
+            </div>
+            <div class="col-lg-6 col-md-6 col-sm-9 col-xs-12" *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
+                <button class="btn" (click)="selectAllFilteresResources()" style="background: #0a6db1;;color: white;height:30px;padding: 0px 9px;">SELECT ALL</button>
+                <button class="btn" (click)="UnSelectAllFilteresResources()" style="background: #0a6db1;;color: white;height:30px;padding: 0px 9px;">CLEAR ALL</button>
+                 <button class="btn" (click)="SubmitResourceRecord()" style="background: #0a6db1;;color: white;height:30px;padding: 0px 9px;">SUBMIT</button>
+            </div>
+        </div>
+        <div class="row" style="margin-top:50px;" *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
+            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12">
+                <div class="row headerResourceTable">
+
+                    <div class="col-md-3 col-xs-3">Firstname</div>
+                    <div class="col-md-3 col-xs-3">Lastname</div>
+                    <div class="col-md-3 col-xs-3">Email</div>
+                    <div class="col-md-3 col-xs-3">IsAllocation</div>
+                </div>
+            </div>
+        </div>
+        <div class="row" *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
+            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12">
+                <div class="row" style="margin: 0 0;border: 2px solid #0a6db1;font-family: serif;">
+                <project-resource-individual-allocation *ngFor="let r of resourceModelDataFiltered" [resourceDetail]="r" [changeCap]="testIt"
+                    (resourceProjectModelVariable)="resourceProjectModelVariable($event)" (ClearResourceProjectAllocation)="ClearResourceProjectAllocation($event)">
+                </project-resource-individual-allocation>
+                </div>
+            </div>
+            <!--<div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 col-md-offset-1" style="border-bottom: 2px solid #0a6db1;">
             </div>-->
         </div>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 selectButtonClass"  *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
-        <button class="btn" (click)="selectAllFilteresResources()" style="background: #0a6db1;;color: white;height:30px;padding: 0px 9px;">SELECT ALL</button>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12 selectButtonClass"  style="height:30px;"
-        *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
-        <button class="btn" (click)="UnSelectAllFilteresResources()" style="background: #0a6db1;;color: white;height:30px;padding: 0px 9px;">CLEAR ALL</button>
-    </div>
-    <div class="col-lg-2 col-md-2 col-sm-3 col-xs-12"  style="height:30px;" *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
-        <button class="btn" (click)="SubmitResourceRecord()" style="background: #0a6db1;;color: white;height:30px;padding: 0px 9px;">SUBMIT</button>
-    </div>
-    <div class="row" style="margin-top:50px;" *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
-        <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 col-md-offset-1">
-            <div class="row headerResourceTable">
-
-                <div class="col-md-3 col-xs-3">Firstname</div>
-                <div class="col-md-3 col-xs-3">Lastname</div>
-                <div class="col-md-3 col-xs-3">Email</div>
-                <div class="col-md-3 col-xs-3">IsAllocation</div>
+        <div class="row" style="margin-top:50px;" *ngIf="resourceModelDataFiltered ==null || resourceModelDataFiltered ==undefined || resourceModelDataFiltered.length==0">
+            <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12">
+                <div class="row" style="text-align: center;background: #0a6db1;padding: 6px;color: white;">
+                    No Records found
+                </div>
             </div>
         </div>
     </div>
-</div>
-<div class="row" *ngIf="resourceModelDataFiltered !=null && resourceModelDataFiltered !=undefined && resourceModelDataFiltered.length>0">
-    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 col-md-offset-1"style="font-family: serif;">
-        <project-resource-individual-allocation *ngFor="let r of resourceModelDataFiltered" [resourceDetail]="r" [changeCap]="testIt"
-            (resourceProjectModelVariable)="resourceProjectModelVariable($event)" (ClearResourceProjectAllocation)="ClearResourceProjectAllocation($event)">
-        </project-resource-individual-allocation>
+    <div class="col-lg-4 col-md-4 col-sm-4 col-xs-12">
     </div>
+</div>
 
-</div>
-<div class="row" style="margin-top:50px;" *ngIf="resourceModelDataFiltered ==null || resourceModelDataFiltered ==undefined || resourceModelDataFiltered.length==0">
-    <div class="col-lg-11 col-md-11 col-sm-11 col-xs-12 col-md-offset-1">
-        <div class="row" style="text-align: center;background: #0a6db1;padding: 6px;color: white;">
-            No Records found
-        </div>
-    </div>
-</div>
+
+
+
 
 <!--</div>-->

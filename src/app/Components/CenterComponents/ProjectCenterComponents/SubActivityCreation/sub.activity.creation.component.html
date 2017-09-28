@@ -8,23 +8,42 @@
     cursor: pointer;" (click)="AddNewActivity()">{{title__add_cancel_activity}}</span>
     </div>
     <div class="row">
-        <!--<div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-            <div [@AnimateGrid]="stateName" (@AnimateGrid.done)="AnimationEnd()" class="row" style="text-align: center;background: #0a6db1;padding: 6px;color: white;">
-                No Sub activity created yet.
-            </div>
-        </div>-->
         <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12" [hidden]="!isShowSubActivityForm">
-            <sub-activity-form (cancelSubActivityCreation)="cancelSubActivityCreation()"></sub-activity-form>
+            <sub-activity-form (cancelSubActivityCreation)="cancelSubActivityCreation()" (subActivityModelToAdd)="subActivityModelToAdd($event)"></sub-activity-form>
         </div>
         <div [class]="classesToApply">
-            <div [@AnimateGrid]="stateName" (@AnimateGrid.done)="AnimationEnd()" class="row" style="text-align: center;background: #0a6db1;padding: 6px;color: white;">
-                No Sub activity created yet.
+            <div [@AnimateGrid]="stateName" (@AnimateGrid.done)="AnimationEnd()" class="row">
+
+                <div *ngIf="SubActivityList ==null || SubActivityList ==undefined || SubActivityList.length==0" style="text-align: center;background: #0a6db1;padding: 6px;color: white;">
+                    No Sub activity created yet.
+                </div>
+                <div *ngIf="SubActivityList !=null && SubActivityList !=undefined && SubActivityList.length>0" style="background: #0a6db1">
+                    <div class="row" style="font-size: 16px;color: white;padding-top: 5px;padding-left: 20px;">
+
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">ActivityName</div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">Description</div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">StartDate</div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">EndDate</div>
+                    </div>
+                    <div class="row" *ngFor="let r of SubActivityList;let i = index" style="padding-top: 6px;padding-left: 25px;width: 100%;
+    margin-left: 0px;background:azure;border-left: 2px solid #0a6db1;
+    border-right: 2px solid #0a6db1;border-bottom: 1px solid #0a6db1;">
+
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            {{r.SubActivityName}}
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+
+                            {{r.SubActivityDesc}}
+                        </div>
+
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            {{r.SubActivityStartDate}}
+                        </div>
+                        <div class="col-lg-3 col-md-3 col-sm-3 col-xs-3">
+                            {{r.SubActivityEndDate}}
+                        </div>
+                    </div>
             </div>
         </div>
     </div>
-    <!--<div class="row" [hidden]="!isShowSubActivityForm">
-        <div class="col-lg-6 col-md-6 col-sm-6 col-xs-12">
-            <sub-activity-form></sub-activity-form>
-        </div>
-    </div>-->
-</div>
