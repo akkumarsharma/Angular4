@@ -1,5 +1,6 @@
  <div class="row"   
-    style="background: azure;padding-top: 9px;padding-bottom: 9px;overflow-wrap: break-word;    margin: 0 0;color: #0a6db1;font-weight: bolder">
+    style="background: azure;padding-top: 9px;padding-bottom: 9px;    border-left: 2px solid #0a6db1;
+        border-right: 2px solid #0a6db1;overflow-wrap: break-word;    margin: 0 0;color: #0a6db1;font-weight: bolder">
         <div class="col-md-3 col-xs-3">{{resourceDetail.FirsName}}</div>
         <div class="col-md-3 col-xs-3">{{resourceDetail.LastName}}{{stringss}}</div>
         <div class="col-md-3 col-xs-3">{{resourceDetail.Email}}</div>
@@ -20,16 +21,20 @@
                 <label class="switch">
                 <input type="checkbox">
                 <span class="slider round"></span>
+                below
+                [(ngModel)]="IsAllocationCheckBoxModel"
+                (ngModelChange)="onIsAllocateResource()"
                 </label>-->
                 <label class="switch">
                 <input type="checkbox" [checked]="IsAllocationCheckBoxModel" 
-                [(ngModel)]="IsAllocationCheckBoxModel"
+                 [(ngModel)]="IsAllocationCheckBoxModel"
                 (ngModelChange)="onIsAllocateResource()">
                 <span class="slider round"></span>
                </label>
         </div>
         </div>
-        <div class="row rowHoverEffect" *ngIf="isResourceAllocated" style="margin: 0 0;">
+        <div  class="row rowHoverEffect" *ngIf="isResourceAllocated" style="margin: 0 0; border-left: 2px solid #0a6db1;
+        border-right: 2px solid #0a6db1;">
                 <div class="col-md-3 col-xs-12">
                         <div class="form-group">
                                 <!--<label for="StartdateTime" class="col-lg-2 control-label" style="margin-top:10px;">StartDate</label>-->
@@ -60,5 +65,13 @@
                 </div>-->
                 <div class="col-md-3 col-xs-12 allocationTextbox">
                         <input type="text" class="form-control" placeholder="% Allocation" [(ngModel)]="percentageAllocation" (ngModelChange)="onIsAllocateResource()">
+                </div>
+                <div class="col-md-3 col-xs-12" style="margin-top:14px;" *ngIf="!addOrUpdateAfterSubmit">
+                        <button class="btn" (click)="SubmitResourceRecord()" style="background: #0a6db1;;color: white;    height: 31px;
+    width: 71px;font-weight:bold;">Add</button>
+                </div>
+                <div class="col-md-3 col-xs-12" style="margin-top:14px;" *ngIf="addOrUpdateAfterSubmit"> 
+                        <button class="btn" (click)="SubmitResourceRecord()" style="background: #0a6db1;;color: white;    height: 31px;
+    width: 71px;font-weight:bold;">Update</button>
                 </div>
         </div>

@@ -4,8 +4,7 @@ export class ResourceModel {
 public ResourceId:string,
 public FirsName:string,
 public LastName:string,
-public Email:string,
-public IsAllocationTemp:boolean
+public Email:string
     ){}
 
 }

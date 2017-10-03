@@ -4,4 +4,5 @@ public ResourceId:string;
 public AllocationPercentage:number;
 public StartDate:Date;
 public EndDate:Date;
+public IsAllocation:boolean;
 }
