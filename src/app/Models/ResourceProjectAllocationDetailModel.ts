@@ -1,8 +1,9 @@
 export class ResourceProjectAllocationDetailModel {
-public ProjectId:number;
+public ResourceAssignedId:string    
+public ProjectCode:string;
 public ResourceId:string;
 public AllocationPercentage:number;
-public StartDate:Date;
-public EndDate:Date;
+public StartDate:string;
+public EndDate:string;
 public IsAllocation:boolean;
 }

@@ -1,11 +1,12 @@
 export class NewProjectEventModel {
 
-
-    public EventName: string;
-    public EventDesc: string;
-    public EventStartDate: string;
-    public EventEndDate: string;
-    public SelectedProject: string;
+    public Id:string;
+    public ActivityId: string;
+    public ActivityName: string;
+    public ActivityDesc: string;
+    public ActivityStartDate: string;
+    public ActivityEndDate: string;
+    public ProjectCode: string;
 
 
 }

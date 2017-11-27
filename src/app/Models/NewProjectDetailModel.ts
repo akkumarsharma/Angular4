@@ -1,10 +1,10 @@
 export class NewProjectDetailModel {
-
-
-    public projectName: string;
-    public projectDesc: string;
-    public projectStartDate: string;
-    public projectEndDate: string;
+    public Id:string;
+    public ProjectCode: string;
+    public ProjectName: string;
+    public ProjectDesc: string;
+    public ProjectStartDate: string;
+    public ProjectEndDate: string;
 
 
 }

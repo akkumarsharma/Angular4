@@ -14,9 +14,9 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { serviceForRoute } from './Services/SharedServices.service';
 import { ApiCommunicationService } from './Services/api.communication.service';
 import { CollapsibleModule } from 'angular2-collapsible';
-import { ProjectNewComponent } from './Components/CenterComponents/ProjectCenterComponents/project.new.component';
-import { ProjectSelectedComponent } from './Components/CenterComponents/ProjectCenterComponents/project.selected.component';
-import { ProjectEventNewComponent } from './Components/CenterComponents/ProjectCenterComponents/project.event.new.component';
+import { ProjectNewComponent } from './Components/CenterComponents/ProjectCenterComponents/ProjectNewComponent/project.new.component';
+import { ProjectSelectedComponent } from './Components/CenterComponents/ProjectCenterComponents/ProjectSelectedComponent/project.selected.component';
+import { ProjectEventNewComponent } from './Components/CenterComponents/ProjectCenterComponents/ProjectEventNewComponent/project.event.new.component';
 import { ControlMessages } from './Directives/control.message'
 import { Tabs } from './Directives/Tabs/tabs'
 import { Tab } from './Directives/Tabs/tab'
@@ -26,8 +26,10 @@ import {
    MdNativeDateModule,
    MdTabsModule,
    MdDatepickerModule,
-   MdSelectModule
-
+   MdSelectModule,
+   MdProgressBarModule,
+    MdProgressSpinnerModule,
+    MdCardModule
 } from '@angular/material';
 import {HttpModule} from '@angular/http';
 //import {CdkTableModule} from '@angular/cdk';
@@ -38,9 +40,14 @@ import { DialogOnsubmitProjectdetailsComponent } from './Components/CenterCompon
 import { ProjectResourceAllocationComponent } from './Components/CenterComponents/ProjectCenterComponents/ProjectResourceAllocation/project.resource.allocation.component'
 import { ProjectResourceIndividualAllocation } from './Components/CenterComponents/ProjectCenterComponents/ProjectResourceAllocation/project.resource.individual.allocation'
 import { BreadcrumbComponent } from './Components/Breadcrumb/breadcrumb.component';
+import { LoaderComponent } from './Components/Loader/loader.component';
+import { LoaderService } from './Components/Loader/loader.service';
 import { SubActivityCreationComponent } from './Components/CenterComponents/ProjectCenterComponents/SubActivityCreation/sub.activity.creation.component'
 import { SubActivityFormComponent } from './Components/CenterComponents/ProjectCenterComponents/SubActivityCreation/sub.activity.form.component'
+
+import { ResourceNewComponent } from './Components/CenterComponents/ResourceCenterComponents/resource.new.component';
 //  import { DateTimePickerModule } from 'ng-pick-datetime';
+import {HttpClientModule} from '@angular/common/http';
 @NgModule({
 
   imports: [
@@ -59,14 +66,19 @@ import { SubActivityFormComponent } from './Components/CenterComponents/ProjectC
     CollapsibleModule,
     MdDatepickerModule,
     ChartsModule,
-    MdSelectModule
+    MdSelectModule,
+    HttpClientModule,
+     MdProgressBarModule,
+    MdProgressSpinnerModule,
+    MdCardModule
   ],
 
   declarations: [AppComponent,TopComponent,LeftComponent,CenterComponent,ProjectComponent,ResourceComponent,ProjectNewComponent, CreateprojectsComponent,
   ProjectSelectedComponent,ProjectEventNewComponent,ControlMessages,DialogOnsubmitProjectdetailsComponent,ProjectResourceAllocationComponent,ProjectResourceIndividualAllocation,
-  BreadcrumbComponent,Tabs, Tab,SubActivityCreationComponent,SubActivityFormComponent],
+  BreadcrumbComponent,Tabs, Tab,SubActivityCreationComponent,SubActivityFormComponent,ResourceNewComponent,
+  LoaderComponent],
   bootstrap: [AppComponent],
-  providers: [serviceForRoute,DatePipe,ApiCommunicationService]
+  providers: [serviceForRoute,DatePipe,ApiCommunicationService,LoaderService]
 })
 export class AppModule {}
 

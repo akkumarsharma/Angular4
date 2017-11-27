@@ -25,6 +25,8 @@ export class CenterComponent implements OnDestroy {
     isShowProjectSelected: boolean;
     isShowProjectResourceAllocation: boolean;
     IsSubActivityCreation:boolean;
+    IsResourceShowNewResourceCreation:boolean;
+    NewId:string;
     constructor(private messageService: serviceForRoute) {
         this.subscription = this.messageService.getMessage().subscribe(message => { this.GetViewInfo(message) });
     }
@@ -46,6 +48,7 @@ export class CenterComponent implements OnDestroy {
 
     breadcrumbList: Breadcrumb[] = [];
     GetViewInfo(obj: CenterComm) {
+        debugger;
         if (obj.CommType != undefined && obj.CommType != null) {
             this.HideAllCompBeforeLoad()
             this.breadcrumbList.length = 0
@@ -64,9 +67,6 @@ export class CenterComponent implements OnDestroy {
                     this.screenmgs = "Project details"
                     this.isShowProjectSelected = true;
                     break;
-                case CenterIdentifier.createNewResource:
-                    this.screenmgs = "Create new resource";
-                    break;
                 case CenterIdentifier.createNewResourceEvent:
                     this.screenmgs = "create new resource event"
                     break;
@@ -75,14 +75,21 @@ export class CenterComponent implements OnDestroy {
                     break;
                 case CenterIdentifier.newProjectResourceCreation:
                     this.screenmgs = "Project Resource Allocation";
+                    this.NewId=obj.Id;
                     this.isShowProjectResourceAllocation = true;
                     this.BuildBreadcrumb(CenterIdentifier.newProjectResourceCreation);
                     break;
                 case CenterIdentifier.subActivityCreation:
                     this.screenmgs = "Create sub activities";
+                     this.NewId=obj.Id;
                     this.IsSubActivityCreation = true;
                     this.BuildBreadcrumb(CenterIdentifier.subActivityCreation);
-                    break;    
+                    break;   
+                case CenterIdentifier.resourceNewResourceCreation:
+                    this.screenmgs = "Create new Resource";
+                    this.IsResourceShowNewResourceCreation = true;
+                    this.BuildBreadcrumb(CenterIdentifier.resourceNewResourceCreation);
+                    break;        
                 default:
                     this.screenmgs = "Error"
             }
@@ -107,6 +114,9 @@ export class CenterComponent implements OnDestroy {
                 this.BuildBreadcrumbMenu("Create new activity", "inactiveleft", 1,CenterIdentifier.createNewProjectActivity)
                 this.BuildBreadcrumbMenu("Create sub activities", "active", 2,CenterIdentifier.subActivityCreation)
                 break;    
+            case CenterIdentifier.resourceNewResourceCreation:
+                this.BuildBreadcrumbMenu("Create new resource", "active", 1,CenterIdentifier.resourceNewResourceCreation)
+                break;      
             default:
         }
     }
@@ -126,6 +136,7 @@ export class CenterComponent implements OnDestroy {
         this.isShowProjectSelected = false;
         this.isShowProjectResourceAllocation = false;
         this.IsSubActivityCreation=false;
+        this.IsResourceShowNewResourceCreation=false;
     }
     ngOnDestroy() {
         this.subscription.unsubscribe();

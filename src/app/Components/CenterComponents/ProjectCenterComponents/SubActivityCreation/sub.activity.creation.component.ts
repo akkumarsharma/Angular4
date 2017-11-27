@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, ViewChild,Input } from '@angular/core';
 import {
     trigger,
     state,
@@ -51,6 +51,7 @@ import { SubActivityFormComponent } from './sub.activity.form.component'
 })
 export class SubActivityCreationComponent {
     switchForm = false;
+     @Input() NewId;
     isShowSubActivityForm = false;
     title__add_cancel_activity = "+Add New"
     get stateName() {

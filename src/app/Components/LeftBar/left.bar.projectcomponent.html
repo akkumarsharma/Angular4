@@ -16,11 +16,11 @@
       <div class="col-md-12">
       <md-input-container style="width: 100%;">
         <!--<input mdInput placeholder="" [mdAutocomplete]="auto" [formControl]="stateCtrl" [(ngModel)]="state" (ngModelChange)="onChange($event)" class="textbox">-->
-        <input mdInput placeholder="Search Projects" [mdAutocomplete]="auto" [formControl]="stateCtrl" [(ngModel)]="state" (ngModelChange)="onChange($event)">
+        <input mdInput placeholder="Search Projects" [mdAutocomplete]="auto" [formControl]="projectCtrl" [(ngModel)]="project" (ngModelChange)="onChange($event)">
       </md-input-container>
       <md-autocomplete #auto="mdAutocomplete">
-        <md-option *ngFor="let state of filteredStates | async" [value]="state">
-          {{ state }}
+        <md-option *ngFor="let project of filteredProjects | async" [value]="project">
+          {{ project }}
         </md-option>
       </md-autocomplete>
     </div>

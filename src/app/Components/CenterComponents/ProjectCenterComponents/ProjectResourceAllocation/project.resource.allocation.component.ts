@@ -1,18 +1,24 @@
-import { Component, ViewChild, OnInit } from '@angular/core';
+import { Component, ViewChild, OnInit,Input } from '@angular/core';
 import { ProjectResourceIndividualAllocation } from './project.resource.individual.allocation';
 import { ResourceModel } from '../../../../Models/ResourceModel';
 import { ResourceProjectAllocationDetailModel } from '../../../../Models/ResourceProjectAllocationDetailModel';
 import { SearchCriteriaType } from '../../../../../enums/SearchCriteriaType';
 import { tempModelResourceAllocationCheck } from './tempModelResourceAllocationCheck';
+import { ApiCommunicationService } from '../../../../Services/api.communication.service'
+import { ApiActionList } from '../../../../CommonClasses/api.action.list'
+import { DatePipe } from '@angular/common';
 @Component({
     selector: 'project-resource-allocation',
     templateUrl: './project.resource.allocation.html',
     styleUrls: ['project.resource.css']
 })
-export class ProjectResourceAllocationComponent {
-    constructor() { }
-
-
+export class ProjectResourceAllocationComponent implements OnInit {
+    constructor(private appcommService: ApiCommunicationService,private datepipe: DatePipe) { }
+    @Input() NewId;
+    ngOnInit(): void {
+        this.LoadResources(true);
+    }
+    resourceModelData = [];
     isCriteriaNotSelected: boolean = true;
     selectedCriteriaValue: string;
     resourceModelDataFiltered: ResourceModel[];
@@ -22,32 +28,47 @@ export class ProjectResourceAllocationComponent {
     reflectChange: string;
     resourceProjectAllocationDetailModelList: ResourceProjectAllocationDetailModel[] = [];
     update_expression: string = "(Updating)";
-    Isupdate_expression:boolean=false;
+    Isupdate_expression: boolean = false;
 
     @ViewChild(ProjectResourceIndividualAllocation) private timerComponent: ProjectResourceIndividualAllocation;
 
     SearchCriteria = [
-        { enumvalue: SearchCriteriaType.firstName, viewValue: 'FirstName' },
-        { enumvalue: SearchCriteriaType.lastName, viewValue: 'LastName' },
-        { enumvalue: SearchCriteriaType.resourceId, viewValue: 'ResourceId' },
-        { enumvalue: SearchCriteriaType.email, viewValue: 'Email' }
+        { enumvalue: SearchCriteriaType.ResourceId, viewValue: 'ResourceId' },
+        { enumvalue: SearchCriteriaType.ResourceName, viewValue: 'ResourceName' },
+        { enumvalue: SearchCriteriaType.ResourceSupervisor, viewValue: 'ResourceSupervisor' },
+        { enumvalue: SearchCriteriaType.ResourceDOJ, viewValue: 'ResourceDOJ' }
     ];
-    resourceModelData = [
-        new ResourceModel("1", 'Akshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
-        new ResourceModel("2", 'Bkshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
-        new ResourceModel("3", 'Ckshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
-        new ResourceModel("4", 'Ckshay', 'Sha', 'bkasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
-        new ResourceModel("5", 'Dkshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
-        new ResourceModel("6", 'Dkshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
-        new ResourceModel("7", 'Dkshay', 'Sha', 'ckasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
-        new ResourceModel("8", 'Ekshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
-        new ResourceModel("9", 'Fkshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
-        new ResourceModel("10", 'Fkshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
-        new ResourceModel("37", 'nikhil', 'rma', 'aksds@gmail.com'),
-        new ResourceModel("19", 'akshas', 'Sarma', 'dssak@gmail.com'),
-        new ResourceModel("11", 'dude', 'harma', 'asdk@gmail.com')
+    LoadResources(val: boolean): void {
+        let actionName = ApiActionList.Get_Resource_List;
+        this.appcommService.getAll(actionName).subscribe(resources => { this.FillResourcesName(resources) });
+        console.log(this.NewId);
+    }
 
-    ];
+    FillResourcesName(resources: any): void {
+        var obj: ResourceModel[] = JSON.parse(resources.text());
+        obj.forEach(item => {
+            this.resourceModelData.push(item);
+        });
+
+    }
+
+
+    // resourceModelData = [
+    //     new ResourceModel("1", 'Akshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
+    //     new ResourceModel("2", 'Bkshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
+    //     new ResourceModel("3", 'Ckshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
+    //     new ResourceModel("4", 'Ckshay', 'Sha', 'bkasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
+    //     new ResourceModel("5", 'Dkshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
+    //     new ResourceModel("6", 'Dkshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
+    //     new ResourceModel("7", 'Dkshay', 'Sha', 'ckasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
+    //     new ResourceModel("8", 'Ekshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
+    //     new ResourceModel("9", 'Fkshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
+    //     new ResourceModel("10", 'Fkshay', 'Sha', 'akasasasasasasasasasaaaaaaaaaaaaadd@gmail.com'),
+    //     new ResourceModel("37", 'nikhil', 'rma', 'aksds@gmail.com'),
+    //     new ResourceModel("19", 'akshas', 'Sarma', 'dssak@gmail.com'),
+    //     new ResourceModel("11", 'dude', 'harma', 'asdk@gmail.com')
+
+    // ];
 
     onChange(newValue): void {
         if (newValue == this.selectedCriteriaValue) {
@@ -67,20 +88,20 @@ export class ProjectResourceAllocationComponent {
     filterResources() {
         if (this.enteredResourceData != null && this.enteredResourceData != "") {
             switch (this.enumTypeCriteria()) {
-                case SearchCriteriaType.firstName:
-                    this.resourceModelDataFiltered = this.enteredResourceData ? this.resourceModelData.filter(s => s.FirsName.toLowerCase().indexOf(this.enteredResourceData.toLowerCase()) === 0)
-                        : null;
-                    break;
-                case SearchCriteriaType.lastName:
-                    this.resourceModelDataFiltered = this.enteredResourceData ? this.resourceModelData.filter(s => s.LastName.toLowerCase().indexOf(this.enteredResourceData.toLowerCase()) === 0)
-                        : null;
-                    break;
-                case SearchCriteriaType.email:
-                    this.resourceModelDataFiltered = this.enteredResourceData ? this.resourceModelData.filter(s => s.Email.toLowerCase().indexOf(this.enteredResourceData.toLowerCase()) === 0)
-                        : null;
-                    break;
-                case SearchCriteriaType.resourceId:
+                case SearchCriteriaType.ResourceId:
                     this.resourceModelDataFiltered = this.enteredResourceData ? this.resourceModelData.filter(s => s.ResourceId.toLowerCase().indexOf(this.enteredResourceData.toLowerCase()) === 0)
+                        : null;
+                    break;
+                case SearchCriteriaType.ResourceName:
+                    this.resourceModelDataFiltered = this.enteredResourceData ? this.resourceModelData.filter(s => s.ResourceName.toLowerCase().indexOf(this.enteredResourceData.toLowerCase()) === 0)
+                        : null;
+                    break;
+                case SearchCriteriaType.ResourceSupervisor:
+                    this.resourceModelDataFiltered = this.enteredResourceData ? this.resourceModelData.filter(s => s.ResourceSupervisor.toLowerCase().indexOf(this.enteredResourceData.toLowerCase()) === 0)
+                        : null;
+                    break;
+                case SearchCriteriaType.ResourceDOJ:
+                    this.resourceModelDataFiltered = this.enteredResourceData ? this.resourceModelData.filter(s => s.ResourceDOJ.toLowerCase().indexOf(this.enteredResourceData.toLowerCase()) === 0)
                         : null;
                     break;
                 default:
@@ -134,13 +155,54 @@ export class ProjectResourceAllocationComponent {
         debugger;
         this.isCurrentResourceAllocatedList.length = 0;
         if (this.resourceProjectAllocationDetailModelList.filter(a => a.ResourceId == model.ResourceId).length == 0) {
+              model.ProjectCode=this.NewId.replace(/"/g,'');
+              let actionName=ApiActionList.Post_Project_Resource_Assigned;
+              this.appcommService.post(model,actionName).subscribe(
+                    data => {
+                        if (data.status==200) //Success
+                        {
+                           
+                        
+                        }
+                        else
+                        {
+                           
+                        }
+                        
+                    },
+                    error => {
+                    
+                    }
+              
+                );
             this.resourceProjectAllocationDetailModelList.push(model);
         }
         else if (this.resourceProjectAllocationDetailModelList != null &&
             this.resourceProjectAllocationDetailModelList.filter(a => a.ResourceId == model.ResourceId).length != 0) {
+            model.ProjectCode=this.NewId.replace(/"/g,'');
+              let actionName=ApiActionList.Update_Project_Resource_Assigned;
+              this.appcommService.post(model,actionName).subscribe(
+                    data => {
+                        if (data.status==200) //Success
+                        {
+                           
+                        
+                        }
+                        else
+                        {
+                           
+                        }
+                        
+                    },
+                    error => {
+                    
+                    }
+              
+                );
+
             let indexModel = this.resourceProjectAllocationDetailModelList.filter(a => a.ResourceId == model.ResourceId)[0];
             var index = this.resourceProjectAllocationDetailModelList.indexOf(indexModel);
-
+ 
             if (index !== -1) {
                 this.resourceProjectAllocationDetailModelList[index] = model;
                 setTimeout(() => {
@@ -176,6 +238,6 @@ export class ProjectResourceAllocationComponent {
 
     resourceName(Id): string {
         let resource = this.resourceModelData.filter(a => a.ResourceId == Id)[0];
-        return resource.FirsName + ' ' + resource.LastName;
+        return resource.ResourceName;
     }
 }

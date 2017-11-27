@@ -1,16 +1,19 @@
-import { Component,Output,EventEmitter } from '@angular/core';
+import { Component,Output,EventEmitter,Input } from '@angular/core';
 import { DatePipe } from '@angular/common';
 import { FormControl } from '@angular/forms';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { SubActivityModel } from '../../../../Models/SubActivityModel';
+import { ApiCommunicationService } from '../../../../Services/api.communication.service'
+import { ApiActionList } from '../../../../CommonClasses/api.action.list'
 @Component({
   selector: 'sub-activity-form',
   templateUrl: './sub.activity.form.component.html',
 })
 export class SubActivityFormComponent{
+  @Input() NewId;
   @Output() cancelSubActivityCreation = new EventEmitter();
   @Output() subActivityModelToAdd = new EventEmitter<SubActivityModel>();
-  constructor(private fb: FormBuilder, public datepipe: DatePipe) { }
+  constructor(private fb: FormBuilder, public datepipe: DatePipe,private appcommService:ApiCommunicationService) { }
   subActivityForm: FormGroup;
   eventEndDateControl: FormControl;
   state: string;
@@ -31,10 +34,28 @@ export class SubActivityFormComponent{
     this.subActivityModel = new SubActivityModel();
     this.subActivityModel.SubActivityName = formData._value.EventNameControl;
     this.subActivityModel.SubActivityDesc = formData._value.EventDescControl;
-    this.subActivityModel.SelectedMainActivity = this.state;
+    this.subActivityModel.SelectedMainActivity = this.NewId.replace(/"/g,'');
     this.subActivityModel.SubActivityStartDate = this.datepipe.transform(formData._value.eventStartDateControl, 'yyyy-MM-dd');
     this.subActivityModel.SubActivityEndDate = this.datepipe.transform(formData._value.eventEndDateControl, 'yyyy-MM-dd');
-    this.showDialog = true;
+     let actionName=ApiActionList.Post_SubActivity_New;
+    this.appcommService.post(this.subActivityModel,actionName).subscribe(
+                    data => {
+                        if (data.status==200) //Success
+                        {  
+                            this.showDialog = true;
+                        
+                        }
+                        else
+                        {
+                            // this.msg = "There is some issue in saving records, please contact to system administrator!"
+                        }
+                        
+                    },
+                    error => {
+                      // this.msg = error;
+                    }
+              
+                );
     console.log(this.subActivityModel);
   }
  

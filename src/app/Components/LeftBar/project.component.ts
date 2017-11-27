@@ -1,4 +1,4 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { FormControl } from '@angular/forms';
 import 'rxjs/add/operator/startWith';
 import 'rxjs/add/operator/map';
@@ -10,7 +10,11 @@ import {
 } from '@angular/router';
 import { serviceForRoute } from '../../Services/SharedServices.service'
 import { CenterComm } from '../../CommonClasses/centerComm'
-import {ElementRef,Renderer} from '@angular/core';
+import { ElementRef, Renderer } from '@angular/core';
+import { NewProjectDetailModel } from '../../Models/NewProjectDetailModel';
+import { ApiCommunicationService } from '../../Services/api.communication.service'
+import { ApiActionList } from '../../CommonClasses/api.action.list'
+import { Subscription } from 'rxjs/Subscription';
 
 @Component({
   selector: 'left-bar-project',
@@ -19,83 +23,53 @@ import {ElementRef,Renderer} from '@angular/core';
 
 })
 export class ProjectComponent {
-  stateCtrl: FormControl;
-  filteredStates: any;
+  projectCtrl: FormControl;
+  filteredProjects: any;
   fullImagePath: string;
-//   @ViewChild("abc") el:ElementRef;
-// ngAfterViewInit() {
-//       let part=this.el.nativeElement.children[0].children[0].querySelector('.mat-input-underline');
-//       this.renderer.setElementStyle(part, 'display', 'none');
-// }
+  projectNames = [];
+  subscription: Subscription;
+  //   @ViewChild("abc") el:ElementRef;
+  // ngAfterViewInit() {
+  //       let part=this.el.nativeElement.children[0].children[0].querySelector('.mat-input-underline');
+  //       this.renderer.setElementStyle(part, 'display', 'none');
+  // }
 
-  states = [
-    'Alabama',
-    'Alaska',
-    'Arizona',
-    'Arkansas',
-    'California',
-    'Colorado',
-    'Connecticut',
-    'Delaware',
-    'Florida',
-    'Georgia',
-    'Hawaii',
-    'Idaho',
-    'Illinois',
-    'Indiana',
-    'Iowa',
-    'Kansas',
-    'Kentucky',
-    'Louisiana',
-    'Maine',
-    'Maryland',
-    'Massachusetts',
-    'Michigan',
-    'Minnesota',
-    'Mississippi',
-    'Missouri',
-    'Montana',
-    'Nebraska',
-    'Nevada',
-    'New Hampshire',
-    'New Jersey',
-    'New Mexico',
-    'New York',
-    'North Carolina',
-    'North Dakota',
-    'Ohio',
-    'Oklahoma',
-    'Oregon',
-    'Pennsylvania',
-    'Rhode Island',
-    'South Carolina',
-    'South Dakota',
-    'Tennessee',
-    'Texas',
-    'Utah',
-    'Vermont',
-    'Virginia',
-    'Washington',
-    'West Virginia',
-    'Wisconsin',
-    'Wyoming',
-  ];
+  ngOnInit(): void {
+    this.LoadProjects(true);
+  }
 
-  constructor(private router: Router, private sharedService: serviceForRoute,private renderer: Renderer) {
-    this.stateCtrl = new FormControl();
-    this.filteredStates = this.stateCtrl.valueChanges
+  LoadProjects(val: boolean): void {
+    if (val == true) {
+      this.projectNames.length = 0;
+      let actionName = ApiActionList.Get_Project_List;
+      this.appcommService.getAll(actionName).subscribe(projects => { this.FillProjectName(projects) });
+    }
+  }
+
+  FillProjectName(projects: any): void {
+    var obj: NewProjectDetailModel[] = JSON.parse(projects.text());
+    obj.forEach(item => {
+      this.projectNames.push(item.ProjectName);
+    });
+
+  }
+
+  constructor(private router: Router, private sharedService: serviceForRoute, private renderer: Renderer, private appcommService: ApiCommunicationService) {
+    this.projectCtrl = new FormControl();
+    this.subscription = this.sharedService.checkIfUpdateProjectsList().subscribe(message => { this.LoadProjects(message) });
+    this.filteredProjects = this.projectCtrl.valueChanges
       .startWith(null)
-      .map(name => this.filterStates(name));
+      .map(name => this.filterProjects(name));
     this.fullImagePath = '/assets/Images/Search_Image.jpg'
   }
 
-  filterStates(val: string) {
-    return val ? this.states.filter(s => s.toLowerCase().indexOf(val.toLowerCase()) === 0)
-      : this.states;
+  filterProjects(val: string) {
+    return val ? this.projectNames.filter(s => s.toLowerCase().indexOf(val.toLowerCase()) === 0)
+      : this.projectNames;
   }
   centerCommObj: CenterComm;
   onChange(newValue): void {
-    if (newValue != undefined && newValue != null) {
+    if (newValue != undefined && newValue != null && this.projectNames.filter(s =>s==newValue).length>0) {
       this.centerCommObj = new CenterComm;
       this.centerCommObj.CommType = CenterIdentifier.selectProject;
       this.centerCommObj.Id = newValue;

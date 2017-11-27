@@ -14,6 +14,7 @@ import { FormControl } from '@angular/forms';
 import { ResourceModel } from '../../../../Models/ResourceModel';
 import { ResourceProjectAllocationDetailModel } from '../../../../Models/ResourceProjectAllocationDetailModel';
 import { tempModelResourceAllocationCheck } from './tempModelResourceAllocationCheck';
+import { DatePipe } from '@angular/common';
 @Component({
     selector: 'project-resource-individual-allocation',
     templateUrl: './project.resource.individual.allocation.html',
@@ -53,7 +54,7 @@ export class ProjectResourceIndividualAllocation {
             this.addOrUpdateAfterSubmit=true;
         }
     }
-    constructor() { }
+    constructor(private datepipe: DatePipe) { }
     stringss: string;
     isResourceAllocated = false;
     IsAllocationCheckBoxModelChanged: boolean = false;
@@ -96,8 +97,8 @@ export class ProjectResourceIndividualAllocation {
 
     FillResourceProjectModel(): void {
         let model = new ResourceProjectAllocationDetailModel();
-        model.StartDate = this.eventStartDateBind;
-        model.EndDate = this.eventEndDateBind;
+        model.StartDate = this.datepipe.transform(this.eventStartDateBind, 'yyyy-MM-dd');
+        model.EndDate = this.datepipe.transform(this.eventEndDateBind, 'yyyy-MM-dd');
         model.ResourceId = this.resourceDetail.ResourceId;
         model.AllocationPercentage = this.percentageAllocation;
         model.IsAllocation = true;

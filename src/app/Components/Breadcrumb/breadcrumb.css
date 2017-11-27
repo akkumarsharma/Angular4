@@ -69,5 +69,5 @@ li.current ~ li { background-color: #EBEBEB; }
 li.current ~ li::after {	border-left-color: #EBEBEB; }
 
 /* Hover for completed and current */
-li:hover {background-color: #696}
-li:hover::after {border-left-color: #696}
+li:hover {background-color: #555;}
+li:hover::after {border-left-color: #555;}
